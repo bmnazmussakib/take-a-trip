@@ -9,6 +9,7 @@ import Contact from './Components/Contact/Contact';
 import Header from './Components/Header/Header';
 import Login from './Components/Login/Login';
 import { createContext, useState } from 'react';
+import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
 
 
 export const UserContext = createContext();
@@ -22,10 +23,12 @@ function App() {
     <UserContext.Provider value={[loggedInUser, setLoggedInUser]}>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/destination" element={<Destination />} />
+        {/* <Route path="/destination" element={<Destination />} /> */}
+        <Route path="/destination" element={ <PrivateRoute> <Destination /> </PrivateRoute>  } />
         <Route path="/blog" element={<Blog />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
+        
       </Routes>
     </UserContext.Provider>
   );

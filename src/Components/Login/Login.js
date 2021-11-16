@@ -10,14 +10,21 @@ import { initializeApp } from 'firebase/app';
 import firebaseConfig from './firebase.config';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { UserContext } from '../../App';
+import { useNavigate, useLocation } from 'react-router'
 
 const Login = () => {
 
+    
     const app = initializeApp(firebaseConfig);
     const provider = new GoogleAuthProvider();
     const auth = getAuth();
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
 
+    let { from } = location.state || { from: { pathname: "/" } };
 
     const [user, setUser] = useState({
         isSignedIn: false,
@@ -44,6 +51,9 @@ const Login = () => {
                     photo: photoURL
                 };
                 setLoggedInUser(signedInUser);
+                if (loggedInUser) {
+                    navigate(from)
+                }
                 
             }).catch((error) => {
                 const errorCode = error.code;
