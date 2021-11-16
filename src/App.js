@@ -10,6 +10,7 @@ import Header from './Components/Header/Header';
 import Login from './Components/Login/Login';
 import { createContext, useState } from 'react';
 import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
+import SignIn from './Components/SignIn/SignIn';
 
 
 export const UserContext = createContext();
@@ -28,7 +29,7 @@ function App() {
         <Route path="/blog" element={<Blog />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
-        
+        <Route path="/signin" element={<SignIn />} />
       </Routes>
     </UserContext.Provider>
   );

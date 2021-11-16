@@ -1,0 +1,39 @@
+form{
+    width: 50%;
+    margin: 0 auto;
+    border: 1px solid lightgrey;
+    padding: 3rem;
+}
+.input{
+    border: none;
+    border-bottom: 1px solid lightgrey;
+}
+
+.or{
+    width: 30%;
+    text-align: center; 
+    border-bottom: 1px solid lightgrey; 
+    line-height: 0.1em;
+    margin: 10px 0 20px; 
+ } 
+ 
+
+.or span { 
+     background:#fff; 
+     padding:0 10px; 
+ }
+
+ .social-sign-in{
+     width: 50%;
+     text-align: center;
+     margin: 0 auto;
+ }
+ .social-btn{
+     width: 80%;
+     border: 1px solid lightgrey;
+     border-radius: 50px;
+     padding: 12px 0;
+ }
+ .social-icon{
+     font-size: 2rem;
+ }

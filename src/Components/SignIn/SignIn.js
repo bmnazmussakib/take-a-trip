@@ -1,27 +1,21 @@
-import './bootstrap.min.css';
-import Button from '@restart/ui/esm/Button';
-import './Login.css';
+import { getAuth, getRedirectResult, signInWithEmailAndPassword, signInWithRedirect, GoogleAuthProvider } from '@firebase/auth';
 import React, { useContext, useState } from 'react';
 import { Container, Form } from 'react-bootstrap';
-import Header from '../Header/Header';
-import { FcGoogle } from 'react-icons/fc';
-import { SiFacebook } from 'react-icons/si';
-import { initializeApp } from 'firebase/app';
-import firebaseConfig from './firebase.config';
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { UserContext } from '../../App';
-import { useNavigate, useLocation } from 'react-router'
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Link } from 'react-router-dom';
+import { UserContext } from '../../App';
+import Header from '../Header/Header';
+import './SignIn.css';
+import { useNavigate, useLocation } from 'react-router'
+import { initializeApp } from '@firebase/app';
+import firebaseConfig from '../Login/firebase.config';
+import { FcGoogle } from 'react-icons/fc';
 
 
-const Login = () => {
-
-
+const Signin = () => {
+    
     const app = initializeApp(firebaseConfig);
-    const provider = new GoogleAuthProvider();
     const auth = getAuth();
-
+    const provider = new GoogleAuthProvider();
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -29,11 +23,9 @@ const Login = () => {
 
     let { from } = location.state || { from: { pathname: "/" } };
 
-
     // Set Email and Password
     const [user, setUser] = useState({
         isSignedIn: false,
-        name: "",
         email: "",
         password: "",
         photo: "",
@@ -42,38 +34,8 @@ const Login = () => {
     });
 
 
-    // Google Sign in
-    const handleGoogleSignin = () => {
 
-        signInWithPopup(auth, provider)
-            .then((result) => {
-                const credential = GoogleAuthProvider.credentialFromResult(result);
-                const token = credential.accessToken;
-                const user = result.user;
-                const { displayName, email, photoURL } = user;
-                const signedInUser = {
-                    isSignedIn: true,
-                    name: displayName,
-                    email: email,
-                    photo: photoURL
-                };
-                setLoggedInUser(signedInUser);
-                if (loggedInUser) {
-                    navigate(from)
-                }
-
-            }).catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                const email = error.email;
-                const credential = GoogleAuthProvider.credentialFromError(error);
-            });
-    }
-
-
-
-
-    // Get user Email and Password
+    // Email Login
     const handleOnBlur = (e) => {
         let isFormValid = true;
         if (e.target.name === "email") {
@@ -81,10 +43,6 @@ const Login = () => {
         }
         if (e.target.name === "password") {
             isFormValid = /^(?=.*[a-z])(?=.*[0-9])(?=.{6,})/.test(e.target.value);
-            // console.log(e.target.name, ":", isFormValid);
-        }
-        if (e.target.name === "name") {
-            isFormValid = /^[a-zA-Z ]+$/.test(e.target.value);
             // console.log(e.target.name, ":", isFormValid);
         }
 
@@ -95,7 +53,9 @@ const Login = () => {
             newUserInfo[e.target.name] = e.target.value;
             setUser(newUserInfo);
         }
-        console.log(user);
+        // console.log(user);
+
+
     }
 
 
@@ -103,9 +63,8 @@ const Login = () => {
     const handleOnSubmit = (e) => {
 
         if (user.name && user.email && user.password) {
-
-            const auth = getAuth();
-            createUserWithEmailAndPassword(auth, user.email, user.password)
+            
+            signInWithEmailAndPassword(auth, user.email, user.password)
                 .then(res => {
                     console.log(res);
                     const newUserInfo = { ...user };
@@ -116,7 +75,6 @@ const Login = () => {
                     if (loggedInUser) {
                         navigate(from)
                     }
-
                 })
                 .catch((error) => {
                     const newUserInfo = { ...user };
@@ -124,15 +82,43 @@ const Login = () => {
                     newUserInfo.success = false;
                     setUser(newUserInfo);
                     console.log(error.message);
-
                 });
+
         }
-
-
-
-
         e.preventDefault();
     }
+
+    // Google Sign in
+    const handleGoogleSignin = () => {
+        const auth = getAuth();
+        signInWithRedirect(auth, provider);
+        // getRedirectResult(auth)
+        //     .then((result) => {
+        //         const credential = GoogleAuthProvider.credentialFromResult(result);
+        //         const token = credential.accessToken;
+        //         const user = result.user;
+        //         const { displayName, email, photoURL } = user;
+        //         const signedInUser = {
+        //             isSignedIn: true,
+        //             name: displayName,
+        //             email: email,
+        //             photo: photoURL
+        //         };
+        //         setLoggedInUser(signedInUser);
+        //         if (loggedInUser) {
+        //             navigate(from)
+        //         }
+        //     }).catch((error) => {
+        //         const errorCode = error.code;
+        //         const errorMessage = error.message;
+        //         const email = error.email;
+        //         const credential = GoogleAuthProvider.credentialFromError(error);
+        //         // ...
+        //     });
+    }
+
+
+
 
     return (
         <div>
@@ -141,18 +127,16 @@ const Login = () => {
                 <p>Email: {user.email}</p>
                 <p>Password: {user.password}</p>
                 <h4 className="text-center text-danger">{user.error}</h4>
-                {user.success && <h4 className="text-center" style={{ color: 'green' }}>Sign up Successfully</h4>}
+                {user.success && <h4 className="text-center" style={{ color: 'green' }}>Signed in Successfully</h4>}
                 <Form onSubmit={handleOnSubmit}>
-                    <h3 className="mb-5">Sign up</h3>
-                    <Form.Group className="mb-3" controlId="formBasicName">
-                        <Form.Control required type="text" name="name" placeholder="Name" className="input" onBlur={handleOnBlur} />
-                    </Form.Group>
-
+                    <h3 className="mb-5">Sign in</h3>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
+                        {/* <Form.Control required type="email" name="email" placeholder="Email" className="input" onBlur={handleOnBlur} /> */}
                         <Form.Control required type="email" name="email" placeholder="Email" className="input" onBlur={handleOnBlur} />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicPassword">
+                        {/* <Form.Control required type="password" name="password" placeholder="Password" className="input" onBlur={handleOnBlur} /> */}
                         <Form.Control required type="password" name="password" placeholder="Password" className="input" onBlur={handleOnBlur} />
                     </Form.Group>
 
@@ -161,9 +145,9 @@ const Login = () => {
                     </Form.Group>
 
                     <div class="d-grid gap-2 mb-4">
-                        <input class="btn py-2" style={{ backgroundColor: '#FF6E40', color: '#ffffff' }} type="Submit" value="Sign up" />
+                        <input class="btn py-2" style={{ backgroundColor: '#FF6E40', color: '#ffffff' }} type="Submit" value="Sign in" />
                     </div>
-                    <p className="text-center">Already have account? <span><Link to="/signin" style={{ color: '#FF6E40' }}>Sign in</Link></span> </p>
+                    <p className="text-center">Don't have account? <span><Link to="/login" style={{ color: '#FF6E40' }}>Create an account</Link></span> </p>
                 </Form>
                 <br /><br />
                 <p className="or m-auto"><span>Or</span></p>
@@ -171,10 +155,11 @@ const Login = () => {
                 <div className="social-sign-in">
                     <a href="#" onClick={handleGoogleSignin} className="btn social-btn"><FcGoogle className="social-icon" /> <span className="">Sign in with Google</span></a>
                     <br /><br />
+
                 </div>
             </Container>
         </div>
     );
 };
 
-export default Login;
+export default Signin;
