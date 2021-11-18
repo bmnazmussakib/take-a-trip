@@ -1,49 +1,36 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Home.css';
-import bg from './img/Bg.png';
 import Header from '../Header/Header';
 import { Card, CardGroup, Container } from 'react-bootstrap';
-import bike from './img/bike.png';
-import car from './img/car.png';
-import bus from './img/bus.png';
-import train from './img/train.png';
 import { Link } from 'react-router-dom';
+// import data from './data.json';
+import data from '../../fakeData/fakeData';
+import { FaMotorcycle } from 'react-icons/fa';
 
 const Home = () => {
 
-
+    // console.log(data);
+    // console.log(typeof (data));
+    const transport = data.map(data => console.log(data))
 
     return (
-        <div className="home-body" style={{
+        <div className="home" style={{
 
         }}>
             <Header />
             <Container className="card-container">
                 <CardGroup className="text-center">
-                    <Card className="mx-3 px-5 pt-5 single-card">
-                        <Link to="destination">
-                            <Card.Img variant="top" src={bike} className="pb-5" />
-                            <Card.Title className="pb-3">Bike</Card.Title>
-                        </Link>
-                    </Card>
-                    <Card className="mx-3 px-5 pt-5 single-card">
-                        <Link to="destination">
-                            <Card.Img variant="top" src={car} className="pb-5" />
-                            <Card.Title className="pb-3">Car</Card.Title>
-                        </Link>
-                    </Card>
-                    <Card className="mx-3 px-5 pt-5 single-card">
-                        <Link to="destination">
-                            <Card.Img variant="top" src={bus} className="pb-5" />
-                            <Card.Title className="pb-3">Bus</Card.Title>
-                        </Link>
-                    </Card>
-                    <Card className="mx-3 px-5 pt-5 single-card">
-                        <Link to="destination">
-                            <Card.Img variant="top" src={train} className="pb-5" />
-                            <Card.Title className="pb-3">Train</Card.Title>
-                        </Link>
-                    </Card>
+
+                    {
+                        data.map(data =>
+                            <Card className="mx-3 px-5 pt-5 single-card" key={data.index}>
+                                <Link to={`destination/${data.name}`}>
+                                    <Card.Img variant="top" src={data.picture} className="pb-5" />
+                                    <Card.Title className="pb-3 card-name">{data.name}</Card.Title>
+                                </Link>
+                            </Card>)
+                    }
+                    
                 </CardGroup>
             </Container>
         </div>

@@ -2,15 +2,15 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 import Header from '../Header/Header';
 
-const Contact = () => {
+const PageNotFound = () => {
     return (
         <div>
-            <Header />
+            <Header/>
             <Container>
-                <h1 className="text-center">This is Contact</h1>
+                <h1 style={{color:'red'}}>404 Page Not Found</h1>
             </Container>
         </div>
     );
 };
 
-export default Contact;
+export default PageNotFound;

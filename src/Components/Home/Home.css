@@ -1,10 +1,12 @@
-.home-body {
-    background-image: url(./img/Bg.png);
+.home {
+    background-image: url(./img/Bg.jpg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;
 }
+
+
 
 .card-container {
     padding: 100px 0;
@@ -13,8 +15,15 @@
 .single-card {
     border-radius: 10px !important;
     transition: 0.5s ease-in-out;
+    background-color: transparent !important;
+    border: 3px solid white !important;
 }
 .single-card:hover {
     transform: scale(1.1);
     cursor: pointer;
+}
+.card-name{
+    color: white;
+    text-decoration: none !important;
+    text-transform: uppercase !important;
 }

@@ -11,6 +11,7 @@ import Login from './Components/Login/Login';
 import { createContext, useState } from 'react';
 import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
 import SignIn from './Components/SignIn/SignIn';
+import PageNotFound from './Components/PageNotFound/PageNotFound';
 
 
 export const UserContext = createContext();
@@ -21,15 +22,17 @@ function App() {
   // console.log("This is App JS: ",loggedInUser);
   
   return (
-    <UserContext.Provider value={[loggedInUser, setLoggedInUser]}>
+    <UserContext.Provider value={[loggedInUser, setLoggedInUser]} className="body">
       <Routes>
         <Route path="/" element={<Home />} />
         {/* <Route path="/destination" element={<Destination />} /> */}
-        <Route path="/destination" element={ <PrivateRoute> <Destination /> </PrivateRoute>  } />
+        {/* <Route path="/destination" element={ <PrivateRoute> <DestinationPage /> </PrivateRoute>  } /> */}
+        <Route path="/destination/:vehicle" element={ <PrivateRoute> <Destination /> </PrivateRoute>  } />
         <Route path="/blog" element={<Blog />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signin" element={<SignIn />} />
+        <Route path="/*" element={<PageNotFound />} />
       </Routes>
     </UserContext.Provider>
   );

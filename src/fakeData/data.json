@@ -1,0 +1,30 @@
+[
+    {
+      "_id": "6194ace8c527dc5b0b39aacd",
+      "index": 0,
+      "price": 10.6,
+      "picture": "https://i.ibb.co/3zcWchz/bike-2.png",
+      "name": "bike"
+    },
+    {
+      "_id": "6194ace8365810d0fe7347fd",
+      "index": 1,
+      "price": 67.9,
+      "picture": "https://i.ibb.co/F4NTy2h/car-2.png",
+      "name": "car"
+    },
+    {
+      "_id": "6194ace866fe5333b76d4e11",
+      "index": 2,
+      "price": 65.58,
+      "picture": "https://i.ibb.co/hKXc5h1/bus-2.png",
+      "name": "bus"
+    },
+    {
+      "_id": "6194ace8a1f4c5f8acc3fc0e",
+      "index": 3,
+      "price": 82.21,
+      "picture": "https://i.ibb.co/ym9h14Y/train-2.png",
+      "name": "train"
+    }
+  ]

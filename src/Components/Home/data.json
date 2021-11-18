@@ -1,0 +1,30 @@
+[
+    {
+      "_id": "6194ace8c527dc5b0b39aacd",
+      "index": 0,
+      "balance": 10.6,
+      "picture": "https://i.ibb.co/vczYJ1S/bike.png",
+      "name": "bike"
+    },
+    {
+      "_id": "6194ace8365810d0fe7347fd",
+      "index": 1,
+      "balance": 67.9,
+      "picture": "https://i.ibb.co/0hTrmPG/car.png",
+      "name": "car"
+    },
+    {
+      "_id": "6194ace866fe5333b76d4e11",
+      "index": 2,
+      "balance": 65.58,
+      "picture": "https://i.ibb.co/jwg3HXx/bus.png",
+      "name": "bus"
+    },
+    {
+      "_id": "6194ace8a1f4c5f8acc3fc0e",
+      "index": 3,
+      "balance": 82.21,
+      "picture": "https://i.ibb.co/x7v6pTg/train.png",
+      "name": "train"
+    }
+  ]
